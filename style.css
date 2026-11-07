@@ -1,0 +1,123 @@
+/* 正典: ProjectShort/DESIGN.md */
+:root {
+  --paper: #FFF8E7;
+  --ink: #2B2B2B;
+  --choice-a: #E8505B;
+  --choice-b: #3D7DD8;
+  --highlight: #FFD23F;
+  --dimmed: #BDBDBD;
+  --on-color: #FFFFFF;
+  --surface: #FFFFFF;
+  --ink-sub: #555555;
+  --shadow: 0 6px 0 rgba(0, 0, 0, .15);
+  --font: "BIZ UDGothic", "BIZ UDPGothic", "Yu Gothic", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.band {
+  height: 48px;
+  /* 赤と青の塗り分け（境目はくっきり。バナーと同じ） */
+  background: linear-gradient(105deg, var(--choice-a) 0 50%, var(--choice-b) 50% 100%);
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 32px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.q {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--choice-a);
+  color: var(--on-color);
+  font-size: 28px;
+}
+
+h2 {
+  margin: 48px 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.card {
+  margin: 24px 0;
+  padding: 24px;
+  border-radius: 28px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.choices { display: grid; gap: 16px; margin: 24px 0; }
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+  padding: 8px 24px 8px 8px;
+  border-radius: 28px;
+  color: var(--on-color);
+  font-weight: 700;
+}
+
+.choice b {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--on-color);
+}
+
+.choice.a { background: var(--choice-a); }
+.choice.a b { color: var(--choice-a); }
+.choice.b { background: var(--choice-b); }
+.choice.b b { color: var(--choice-b); }
+
+a { color: var(--choice-b); }
+a:focus-visible { outline: 3px solid var(--highlight); outline-offset: 2px; }
+
+nav { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 48px; }
+nav a { display: inline-flex; align-items: center; min-height: 44px; }
+
+.note { font-size: 14px; color: var(--ink-sub); }
+
+ul { padding-left: 1.4em; }
+
+footer {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 2px solid var(--dimmed);
+  font-size: 14px;
+}
+
+@media (max-width: 599px) {
+  main { padding: 32px 16px; }
+  .title { font-size: 24px; }
+  .q { width: 44px; height: 44px; font-size: 22px; }
+}
