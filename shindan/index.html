@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>どっち買う？診断 | Amazonデバイス編</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f5f7;
+    --surface:#ffffff;
+    --surface-2:#eef0f3;
+    --ink:#131921;
+    --ink-2:#3d4754;
+    --ink-3:#6b7686;
+    --line:#e2e5ea;
+    --accent:#ff7a00;
+    --accent-ink:#111111;
+    --accent-soft:#fff1e2;
+    --black:#131921;
+    --black-2:#1e2a36;
+    --yellow:#febd69;
+    --green:#067d62;
+    --green-soft:#e6f4f0;
+    --radius-lg:22px;
+    --radius-md:16px;
+    --radius-sm:12px;
+    --shadow:0 10px 30px rgba(19,25,33,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1215;
+      --surface:#171b1f;
+      --surface-2:#1f2429;
+      --ink:#f2f4f7;
+      --ink-2:#c7ced8;
+      --ink-3:#9aa4b2;
+      --line:#2a3036;
+      --accent-soft:#2b2116;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Noto Sans JP", "Hiragino Kaku Gothic ProN","Hiragino Sans", system-ui, -apple-system, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  button{font-family:inherit; cursor:pointer}
+  a{color:inherit}
+  .wrap{max-width:700px; margin:0 auto; padding:0 16px 40px}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:var(--black);
+    color:#fff;
+    margin:0 -16px;
+    padding:22px 20px 26px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; right:-50px; top:-50px;
+    width:190px; height:190px; border-radius:50%;
+    background:var(--yellow);
+    opacity:.14;
+  }
+  .hero-top{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    position:relative; z-index:1;
+  }
+  .bf-badge{
+    display:inline-flex; align-items:center; gap:7px;
+    background:var(--accent); color:#fff;
+    font-size:11px; font-weight:800; letter-spacing:.08em;
+    padding:6px 10px; border-radius:999px;
+  }
+  .bf-badge i{width:6px;height:6px;background:#fff;border-radius:50%;display:block}
+  .hero-date{font-size:11px; color:#cbd5e1; font-weight:700; letter-spacing:.04em; white-space:nowrap}
+  .hero h1{
+    font-size:36px; line-height:1.15; font-weight:900; letter-spacing:-.02em;
+    margin:16px 0 8px; position:relative; z-index:1;
+  }
+  .hero h1 span{color:var(--yellow)}
+  .hero p{
+    margin:0; color:#dbe2ea; font-size:14.5px; line-height:1.7; max-width:520px;
+    position:relative; z-index:1;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; position:relative; z-index:1;
+  }
+  .hero-meta span{
+    font-size:12px; font-weight:700; color:#fff;
+    border:1px solid rgba(255,255,255,.22);
+    padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.06);
+  }
+
+  /* Sale banner */
+  .sale-banner{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    border-radius:14px;
+    padding:14px 16px;
+    margin-top:16px;
+    box-shadow:var(--shadow);
+    display:flex; gap:12px;
+  }
+  .sale-banner .cal{
+    flex:0 0 auto; width:42px; height:42px; border-radius:10px;
+    background:var(--accent-soft); display:grid; place-items:center; color:var(--accent);
+  }
+  .sale-banner strong{font-size:13.5px; display:block; line-height:1.4}
+  .sale-banner p{margin:3px 0 0; font-size:12.5px; color:var(--ink-2); line-height:1.6}
+  .sale-banner b{color:var(--ink)}
+
+  /* Sections */
+  .section-head{margin:26px 0 6px; display:flex; align-items:baseline; justify-content:space-between; gap:12px}
+  .section-head h2{font-size:19px; font-weight:900; letter-spacing:-.01em; margin:0}
+  .section-head span{font-size:12px; color:var(--ink-3); font-weight:700; white-space:nowrap}
+  .section-sub{font-size:13.5px; color:var(--ink-2); margin:0 0 14px}
+
+  /* Category cards */
+  .cat-list{display:grid; gap:12px}
+  .cat-card{
+    width:100%; text-align:left;
+    background:var(--surface); border:1.5px solid var(--line);
+    border-radius:var(--radius-lg); padding:18px;
+    display:flex; gap:16px; align-items:center;
+    transition:border-color .15s, transform .15s, box-shadow .15s;
+    min-height:92px;
+  }
+  .cat-card:hover, .cat-card:focus-visible{border-color:var(--accent); box-shadow:var(--shadow); outline:none}
+  .cat-card:active{transform:scale(.99)}
+  .cat-icon{
+    flex:0 0 auto; width:58px; height:58px; border-radius:16px;
+    display:grid; place-items:center;
+  }
+  .cat-icon.echo{background:#e8f0fe; color:#1a56db}
+  .cat-icon.kindle{background:#e6f4f0; color:#067d62}
+  .cat-icon.fire{background:#fff1e2; color:#c2410c}
+  @media (prefers-color-scheme: dark){
+    .cat-icon.echo{background:#1c2a44}
+    .cat-icon.kindle{background:#15332c}
+    .cat-icon.fire{background:#332211}
+  }
+  .cat-body{flex:1; min-width:0}
+  .cat-body strong{font-size:17px; font-weight:900; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .cat-body strong em{font-style:normal; font-size:11px; font-weight:800; color:var(--accent); background:var(--accent-soft); padding:2px 7px; border-radius:999px; letter-spacing:.02em}
+  .cat-body p{margin:2px 0 0; font-size:13px; color:var(--ink-2); line-height:1.55}
+  .cat-arrow{flex:0 0 auto; color:var(--ink-3); font-size:20px; font-weight:700}
+
+  .how{
+    margin-top:22px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg); padding:16px 18px;
+  }
+  .how h3{margin:0 0 10px; font-size:13px; font-weight:900; letter-spacing:.06em; color:var(--ink-3)}
+  .how ol{margin:0; padding:0; list-style:none; display:grid; gap:10px; counter-reset:step}
+  .how li{display:flex; gap:12px; font-size:13.5px; color:var(--ink-2); align-items:flex-start}
+  .how li b{
+    flex:0 0 auto; width:24px; height:24px; border-radius:50%; background:var(--black); color:#fff;
+    display:grid; place-items:center; font-size:12px; margin-top:1px;
+  }
+  @media (prefers-color-scheme: dark){ .how li b{background:var(--accent)} }
+  .how li strong{color:var(--ink)}
+
+  .disclaimer{
+    margin-top:18px; font-size:11.5px; line-height:1.7; color:var(--ink-3);
+    background:var(--surface-2); border-radius:12px; padding:12px 14px;
+  }
+
+  /* ---------- Quiz ---------- */
+  .view{display:none}
+  .view.active{display:block; animation:fadeIn .22s ease}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+  @media (prefers-reduced-motion: reduce){ .view.active{animation:none} }
+
+  .quiz-top{margin-top:20px}
+  .back-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--surface); border:1px solid var(--line); color:var(--ink-2);
+    font-size:13px; font-weight:700; padding:9px 14px; border-radius:999px; min-height:40px;
+  }
+  .back-btn:hover{border-color:var(--ink-3)}
+  .progress-wrap{margin:16px 0 6px}
+  .progress-meta{display:flex; justify-content:space-between; font-size:12px; font-weight:800; color:var(--ink-3); letter-spacing:.04em}
+  .progress-meta b{color:var(--accent)}
+  .progress{height:8px; background:var(--surface-2); border-radius:999px; overflow:hidden; margin-top:7px; border:1px solid var(--line)}
+  .progress i{display:block; height:100%; background:var(--accent); border-radius:999px; transition:width .3s ease}
+
+  .q-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:24px;
+    padding:22px 18px 18px; margin-top:14px; box-shadow:var(--shadow);
+  }
+  .q-label{font-size:11px; font-weight:900; letter-spacing:.1em; color:var(--accent); margin:0 0 6px}
+  .q-title{font-size:21px; font-weight:900; line-height:1.4; margin:0 0 4px; letter-spacing:-.01em}
+  .q-hint{font-size:13px; color:var(--ink-3); margin:0 0 16px}
+  .options{display:grid; gap:10px}
+  .option-btn{
+    width:100%; text-align:left; background:var(--surface);
+    border:1.5px solid var(--line); border-radius:16px; padding:15px 16px;
+    display:flex; gap:12px; align-items:center; min-height:60px;
+    transition:border-color .15s, background .15s;
+  }
+  .option-btn:hover, .option-btn:focus-visible{border-color:var(--accent); background:var(--accent-soft); outline:none}
+  .option-btn:active{transform:scale(.99)}
+  .option-btn .dot{
+    flex:0 0 auto; width:22px; height:22px; border-radius:50%; border:2px solid var(--line); background:var(--surface);
+    display:grid; place-items:center;
+  }
+  .option-btn:hover .dot{border-color:var(--accent)}
+  .option-btn .dot::after{content:""; width:10px; height:10px; border-radius:50%; background:transparent}
+  .option-btn.selected{border-color:var(--accent); background:var(--accent-soft)}
+  .option-btn.selected .dot{border-color:var(--accent)}
+  .option-btn.selected .dot::after{background:var(--accent)}
+  .option-text{flex:1}
+  .option-text strong{font-size:15px; font-weight:800; display:block; line-height:1.4}
+  .option-text span{font-size:12.5px; color:var(--ink-2); display:block; margin-top:1px; line-height:1.5}
+  .option-arrow{color:var(--ink-3); font-weight:700}
+
+  /* ---------- Result ---------- */
+  .result-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--green-soft); color:var(--green);
+    font-size:12px; font-weight:900; padding:6px 11px; border-radius:999px; letter-spacing:.03em;
+  }
+  .result-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:26px;
+    overflow:hidden; margin-top:14px; box-shadow:var(--shadow);
+  }
+  .result-visual{
+    background:var(--black); color:#fff; padding:26px 20px 22px; position:relative; overflow:hidden;
+  }
+  .result-visual::after{content:""; position:absolute; right:-40px; bottom:-60px; width:170px; height:170px; border-radius:50%; background:var(--yellow); opacity:.13}
+  .result-visual .cat-name{font-size:12px; font-weight:800; letter-spacing:.1em; color:var(--yellow); margin:0 0 6px; position:relative; z-index:1}
+  .result-visual h2{font-size:28px; line-height:1.25; font-weight:900; margin:0; letter-spacing:-.01em; position:relative; z-index:1}
+  .result-visual p{margin:8px 0 0; color:#dbe2ea; font-size:13.5px; position:relative; z-index:1; line-height:1.6}
+  .result-body{padding:20px}
+  .chips{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:18px}
+  .chips span{font-size:12px; font-weight:800; background:var(--surface-2); border:1px solid var(--line); padding:6px 10px; border-radius:999px}
+  .why-box{background:var(--accent-soft); border-radius:16px; padding:16px}
+  .why-box h3{margin:0 0 6px; font-size:13px; font-weight:900; letter-spacing:.04em; display:flex; align-items:center; gap:7px}
+  .why-box p{margin:0; font-size:14px; line-height:1.75; color:var(--ink-2)}
+  .why-box p strong{color:var(--ink)}
+  .price-row{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    border-top:1px dashed var(--line); border-bottom:1px dashed var(--line);
+    padding:16px 2px; margin:18px 0;
+  }
+  .price-row small{font-size:11px; font-weight:800; letter-spacing:.07em; color:var(--ink-3); display:block}
+  .price-row strong{font-size:20px; font-weight:900}
+  .price-row .price-note{font-size:12px; color:var(--ink-2); text-align:right; line-height:1.5; max-width:210px}
+  .amazon-btn{
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    width:100%; min-height:56px; border-radius:16px;
+    background:var(--accent); color:#fff; text-decoration:none;
+    font-size:16px; font-weight:900; letter-spacing:.01em;
+    box-shadow:0 8px 20px rgba(255,122,0,.28);
+  }
+  .amazon-btn:hover{filter:brightness(1.03)}
+  .amazon-btn:focus-visible{outline:3px solid var(--yellow); outline-offset:2px}
+  .amazon-sub{font-size:11.5px; color:var(--ink-3); text-align:center; margin:9px 0 0; line-height:1.6}
+  .result-actions{display:grid; gap:10px; margin-top:18px}
+  .btn-primary{
+    width:100%; min-height:52px; border-radius:14px; border:0;
+    background:var(--black); color:#fff; font-size:15px; font-weight:900;
+  }
+  @media (prefers-color-scheme: dark){ .btn-primary{background:#fff; color:#111} }
+  .btn-secondary{
+    width:100%; min-height:52px; border-radius:14px;
+    background:var(--surface); border:1.5px solid var(--line); color:var(--ink);
+    font-size:14.5px; font-weight:800;
+  }
+  .answers-recap{margin-top:18px}
+  .answers-recap h3{font-size:12px; letter-spacing:.07em; color:var(--ink-3); font-weight:900; margin:0 0 8px}
+  .answers-recap ul{list-style:none; margin:0; padding:0; display:grid; gap:7px}
+  .answers-recap li{font-size:13px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; gap:12px}
+  .answers-recap li span{color:var(--ink-3); flex:0 0 auto}
+  .answers-recap li b{text-align:right}
+
+  footer{margin-top:28px; padding-top:16px; border-top:1px solid var(--line)}
+  footer p{font-size:11.5px; color:var(--ink-3); line-height:1.7; margin:0 0 6px}
+  @media (min-width:640px){
+    .hero{border-radius:0 0 24px 24px; margin:0; padding:28px 28px 30px}
+    .hero h1{font-size:42px}
+    .cat-list{grid-template-columns:1fr}
+    .q-card{padding:26px 24px 22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= HOME ================= -->
+  <section id="view-home" class="view active" aria-label="カテゴリー選択">
+    <header class="hero">
+      <div class="hero-top">
+        <span class="bf-badge"><i></i> BLACK FRIDAY</span>
+        <span class="hero-date">2026年 11月27日〜12月7日</span>
+      </div>
+      <h1>どっち買う？<br><span>診断</span> — Amazonデバイス編</h1>
+      <p>Echo、Kindle、Fire TV Stick。似ていて迷いやすい3カテゴリーを、タップだけの3つの質問で1機種に絞ります。文字入力は一切なし、約30秒で終わります。</p>
+      <div class="hero-meta">
+        <span>全3問・タップだけ</span>
+        <span>おすすめは1機種だけ</span>
+        <span>結果からAmazonで確認</span>
+      </div>
+    </header>
+
+    <div class="sale-banner" role="note">
+      <div class="cal" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+      </div>
+      <div>
+        <strong>セール価格は11月27日から表示されます</strong>
+        <p>先行セール <b>11月27日（金）〜29日（日）</b> ／ 本セール <b>11月30日（月）〜12月7日（月）</b>。今は通常価格での比較です。気になる機種は27日にもう一度チェックを。</p>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2>何で迷っていますか？</h2>
+      <span>STEP 1 / カテゴリー</span>
+    </div>
+    <p class="section-sub">気になるカテゴリーをタップしてください。あとは3つの質問に答えるだけです。</p>
+
+    <div class="cat-list" role="list">
+      <button class="cat-card" data-cat="echo" type="button">
+        <span class="cat-icon echo" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/><path d="M12 1.8v2M12 20.2v2M1.8 12h2M20.2 12h2" opacity=".5"/></svg>
+        </span>
+        <span class="cat-body">
+          <strong>Echo <em>4機種から診断</em></strong>
+          <p>スマートスピーカー。置く場所・画面の有無・音質やスマートホームで選びます。</p>
+        </span>
+        <span class="cat-arrow" aria-hidden="true">›</span>
+      </button>
+
+      <button class="cat-card" data-cat="kindle" type="button">
+        <span class="cat-icon kindle" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/><path d="M8 8h8M8 11.5h5"/></svg>
+        </span>
+        <span class="cat-body">
+          <strong>Kindle <em>3機種から診断</em></strong>
+          <p>電子書籍リーダー。文字中心かカラーか、防水やバッテリーで選びます。</p>
+        </span>
+        <span class="cat-arrow" aria-hidden="true">›</span>
+      </button>
+
+      <button class="cat-card" data-cat="firetv" type="button">
+        <span class="cat-icon fire" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="15" height="11" rx="2"/><path d="M17.5 12h2a2 2 0 0 1 2 2v5h-6v-3"/><path d="M6 9.2v2.6M9.5 9.2v2.6" opacity=".7"/></svg>
+        </span>
+        <span class="cat-body">
+          <strong>Fire TV Stick <em>4機種から診断</em></strong>
+          <p>テレビで動画を見るスティック。4K対応・Dolby・動作の速さで選びます。</p>
+        </span>
+        <span class="cat-arrow" aria-hidden="true">›</span>
+      </button>
+    </div>
+
+    <div class="how">
+      <h3>診断の流れ</h3>
+      <ol>
+        <li><b>1</b><span><strong>カテゴリーを選ぶ</strong> — Echo／Kindle／Fire TV Stickから1つ</span></li>
+        <li><b>2</b><span><strong>3つの質問にタップで答える</strong> — 途中で前の質問に戻れます</span></li>
+        <li><b>3</b><span><strong>おすすめ1機種が出ます</strong> — 理由とあわせて、Amazonの検索ページで価格・在庫を確認できます</span></li>
+      </ol>
+    </div>
+
+    <p class="disclaimer">このページにはアフィリエイトリンクが含まれる場合があります。価格と在庫は変わることがあります。表示しているKindleの価格は通常価格です。EchoとFire TV Stickの価格は、Amazonのページでご確認ください。</p>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section id="view-quiz" class="view" aria-label="診断の質問">
+    <div class="quiz-top">
+      <button class="back-btn" id="backBtn" type="button">← 戻る</button>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span id="progressLabel">質問 1 / 3</span><span><b id="progressCat">Echo</b> 診断中</span></div>
+        <div class="progress" aria-hidden="true"><i id="progressBar" style="width:33%"></i></div>
+      </div>
+    </div>
+    <div class="q-card">
+      <p class="q-label" id="qLabel">QUESTION 1</p>
+      <h2 class="q-title" id="qTitle"></h2>
+      <p class="q-hint" id="qHint"></p>
+      <div class="options" id="options"></div>
+    </div>
+    <p class="disclaimer" style="margin-top:14px">このページにはアフィリエイトリンクが含まれる場合があります。価格と在庫は変わることがあります。</p>
+  </section>
+
+  <!-- ================= RESULT ================= -->
+  <section id="view-result" class="view" aria-label="診断結果">
+    <div style="margin-top:20px">
+      <span class="result-badge">✓ 診断結果 — あなたにおすすめはこれです</span>
+    </div>
+
+    <article class="result-card">
+      <div class="result-visual">
+        <p class="cat-name" id="rCat"></p>
+        <h2 id="rName"></h2>
+        <p id="rTagline"></p>
+      </div>
+      <div class="result-body">
+        <div class="chips" id="rChips"></div>
+
+        <div class="why-box">
+          <h3>💡 なぜこれがおすすめか</h3>
+          <p id="rWhy"></p>
+        </div>
+
+        <div class="price-row">
+          <div>
+            <small id="rPriceLabel">通常価格</small>
+            <strong id="rPrice"></strong>
+          </div>
+          <p class="price-note" id="rPriceNote"></p>
+        </div>
+
+        <a class="amazon-btn" id="rAmazon" href="#" target="_blank" rel="noopener noreferrer">
+          Amazon.co.jpでこの機種を見る
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+        <p class="amazon-sub">Amazon.co.jpの検索結果ページが開きます。セール価格は11月27日0時から表示されます。</p>
+
+        <div class="result-actions">
+          <button class="btn-primary" id="restartBtn" type="button">もう一度診断する</button>
+          <button class="btn-secondary" id="changeCatBtn" type="button">別のカテゴリーを診断する</button>
+        </div>
+
+        <div class="answers-recap">
+          <h3>あなたの回答</h3>
+          <ul id="rAnswers"></ul>
+        </div>
+      </div>
+    </article>
+
+    <div class="sale-banner" style="margin-top:16px" role="note">
+      <div class="cal" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+      </div>
+      <div>
+        <strong>セール価格は11月27日から</strong>
+        <p>先行セール <b>11月27日〜29日</b> ／ 本セール <b>11月30日〜12月7日</b>。今のうちに機種を決めておくと、セール開始直後に迷わず買えます。</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>このページにはアフィリエイトリンクが含まれる場合があります。価格と在庫は変わることがあります。</p>
+      <p>製品仕様・価格は変更される場合があります。購入前にAmazon.co.jpの商品ページで最新情報をご確認ください。</p>
+    </footer>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var DATA = {
+    echo: {
+      label: "Echo",
+      fullLabel: "Echo — スマートスピーカー",
+      questions: [
+        {
+          title: "置く場所は？",
+          hint: "主に使う部屋を選んでください。",
+          options: [
+            { label: "リビング", desc: "家族で使う・テレビの近く", scores: { dotmax: 2, dot5: 1 } },
+            { label: "寝室", desc: "ベッドサイドに置きたい", scores: { time: 3, spot: 1, dot5: 1 } },
+            { label: "キッチン・洗面所", desc: "タイマーや音楽に使いたい", scores: { dot5: 2, spot: 1 } },
+            { label: "書斎・デスク周り", desc: "仕事や勉強のお供に", scores: { dot5: 2, dotmax: 1 } }
+          ]
+        },
+        {
+          title: "画面は要る？",
+          hint: "声だけでも使えます。画面があると天気や時刻がひと目で分かります。",
+          options: [
+            { label: "画面はいらない", desc: "声だけで十分", scores: { dot5: 2, dotmax: 2 } },
+            { label: "時計表示があれば十分", desc: "時刻がパッと見えればOK", scores: { time: 4, spot: 1 } },
+            { label: "小さな画面付きがいい", desc: "天気・予定・カメラ映像も見たい", scores: { spot: 5 } }
+          ]
+        },
+        {
+          title: "何を重視する？",
+          hint: "一番大事にしたいポイントを1つ選んでください。",
+          options: [
+            { label: "まずは安く試したい", desc: "初めてのスマートスピーカー", scores: { dot5: 3 } },
+            { label: "音質とスマートホーム", desc: "音楽も家電操作も本格的に", scores: { dotmax: 4 } },
+            { label: "バランスの良さ", desc: "価格と機能のちょうどよさ", scores: { dot5: 2, dotmax: 1 } },
+            { label: "目覚まし・時計の使いやすさ", desc: "朝の起床と時間管理", scores: { time: 3 } }
+          ]
+        }
+      ],
+      results: {
+        dot5: {
+          name: "Echo Dot（第5世代）",
+          tagline: "温度・人感センサー付きの定番モデル。初めての1台に。",
+          chips: ["温度センサー", "人感センサー", "定番・バランス型"],
+          why: "初めてのEchoにぴったりの定番モデルです。<strong>温度・人感センサー付き</strong>で、人の動きに合わせた照明やエアコンの操作のきっかけにもできます。価格を抑えつつ、音楽もスマートホームもバランスよく試したい方におすすめです。",
+          price: null,
+          search: "Echo Dot 第5世代"
+        },
+        dotmax: {
+          name: "Echo Dot Max",
+          tagline: "重低音とスマートホームハブ内蔵。音と拡張性で選ぶなら。",
+          chips: ["重低音", "スマートホームハブ内蔵", "音質重視"],
+          why: "重低音がしっかり響くので、<strong>リビングで音楽を楽しみたい方</strong>に最適です。スマートホームハブ内蔵で、対応家電をまとめて声で操作できます。音質とスマートホームの拡張性を重視するならこちらです。",
+          price: null,
+          search: "Echo Dot Max"
+        },
+        time: {
+          name: "Echo Time",
+          tagline: "2026年の新スマートクロック。寝室の目覚ましに特化。",
+          chips: ["2026年 新モデル", "スマートクロック", "目覚まし・時計向け"],
+          why: "寝室に置くことを考えた<strong>2026年の新しいスマートクロック</strong>です。時刻がひと目で分かり、目覚ましやタイマー、就寝前の音楽も声だけで完結します。スマホを見ずに朝を迎えたい方に合っています。",
+          price: null,
+          search: "Echo Time"
+        },
+        spot: {
+          name: "Echo Spot",
+          tagline: "小さな画面付きでコンパクト。天気も予定もひと目で確認。",
+          chips: ["小さな画面付き", "コンパクト", "天気・カメラ確認"],
+          why: "小さな画面で<strong>天気・カレンダー・カメラ映像をさっと確認</strong>できます。画面付きでもコンパクトなので、ベッドサイドや玄関にも置きやすいモデルです。声＋画面の便利さを手軽に体験したい方におすすめです。",
+          price: null,
+          search: "Echo Spot"
+        }
+      },
+      tieOrder: ["spot", "time", "dotmax", "dot5"]
+    },
+
+    kindle: {
+      label: "Kindle",
+      fullLabel: "Kindle — 電子書籍リーダー",
+      questions: [
+        {
+          title: "読むのは文字中心？カラーで読みたい？",
+          hint: "普段よく読む本のタイプを選んでください。",
+          options: [
+            { label: "小説など文字中心", desc: "活字の本がほとんど", scores: { base: 2, paperwhite: 2 } },
+            { label: "マンガ・雑誌をカラーで読みたい", desc: "カラーページもそのまま楽しみたい", scores: { colorsoft: 5 } },
+            { label: "両方読むけど文字が多め", desc: "たまにマンガや雑誌も読む", scores: { paperwhite: 2, base: 1 } }
+          ]
+        },
+        {
+          title: "お風呂や外出先でも読む？",
+          hint: "よく読む場所・シーンを選んでください。",
+          options: [
+            { label: "お風呂でも読みたい", desc: "防水があると安心", scores: { paperwhite: 3, colorsoft: 3 } },
+            { label: "外出先・通勤で読みたい", desc: "軽くて持ち運びやすい方がいい", scores: { base: 2, paperwhite: 1 } },
+            { label: "主に家の中で読む", desc: "ソファやベッドでゆっくり", scores: { base: 1, colorsoft: 1 } }
+          ]
+        },
+        {
+          title: "何を重視する？",
+          hint: "一番大事にしたいポイントを1つ選んでください。",
+          options: [
+            { label: "軽さと安さ", desc: "気軽に始めたい・片手で持ちたい", scores: { base: 4 } },
+            { label: "バッテリーの長さと防水", desc: "充電を気にせず、どこでも読みたい", scores: { paperwhite: 4 } },
+            { label: "カラー表示と読みやすさ", desc: "マンガ・雑誌・ハイライトを活用したい", scores: { colorsoft: 4 } }
+          ]
+        }
+      ],
+      results: {
+        base: {
+          name: "Kindle 16GB",
+          tagline: "シリーズ最軽量。軽さと安さで選ぶ、最初の1台。",
+          chips: ["6インチ", "シリーズ最軽量", "バッテリー最大6週間", "16GB"],
+          why: "<strong>シリーズ最軽量</strong>で片手でも疲れにくく、通勤や外出のお供に最適です。6インチは小説など文字中心の読書に十分なサイズ感。まずは安く電子書籍を始めたい方の第一台におすすめです。",
+          price: "¥29,980",
+          search: "Kindle 16GB"
+        },
+        paperwhite: {
+          name: "Kindle Paperwhite",
+          tagline: "IPX8防水と最大12週間のバッテリー。毎日読む方の本命。",
+          chips: ["7インチ", "IPX8防水", "バッテリー最大12週間"],
+          why: "<strong>IPX8防水</strong>なのでお風呂でも安心して読めます。7インチの見やすい画面と<strong>最大12週間のバッテリー</strong>で、充電を気にせず長く使えます。毎日しっかり読む方に一番バランスの良いモデルです。",
+          price: "¥39,980",
+          search: "Kindle Paperwhite"
+        },
+        colorsoft: {
+          name: "Kindle Colorsoft",
+          tagline: "7インチカラー表示。マンガ・雑誌を色そのままに。",
+          chips: ["7インチ カラー", "5色ハイライト", "バッテリー最大8週間"],
+          why: "<strong>カラー表示対応</strong>で、マンガや雑誌のページがそのままの色で楽しめます。5色のハイライトで気になった箇所を色分けできるのも便利です。文字だけでなくカラーコンテンツも多い方におすすめです。",
+          price: "¥51,980",
+          search: "Kindle Colorsoft"
+        }
+      },
+      tieOrder: ["colorsoft", "paperwhite", "base"]
+    },
+
+    firetv: {
+      label: "Fire TV Stick",
+      fullLabel: "Fire TV Stick — ストリーミング",
+      questions: [
+        {
+          title: "テレビは4K？",
+          hint: "つなぐテレビの解像度を選んでください。",
+          options: [
+            { label: "4Kテレビ", desc: "4K対応のテレビを使っている", scores: { s4k: 2, plus: 2, max: 2 } },
+            { label: "フルHDテレビ", desc: "4Kではないテレビ", scores: { hd: 4, s4k: 1 } },
+            { label: "わからない／これから買う", desc: "型番は分からない", scores: { s4k: 2, hd: 1 } }
+          ]
+        },
+        {
+          title: "見るのは何が中心？",
+          hint: "一番よく見るジャンルを選んでください。",
+          options: [
+            { label: "YouTubeや無料動画が中心", desc: "気軽にいろいろ見たい", scores: { s4k: 2, hd: 1 } },
+            { label: "映画・ドラマをじっくり", desc: "映像と音にこだわりたい", scores: { plus: 4, max: 1 } },
+            { label: "スポーツやライブ", desc: "動きの速い映像が多い", scores: { max: 2, s4k: 1 } },
+            { label: "いろいろまんべんなく", desc: "映画も動画もスポーツも", scores: { s4k: 2, max: 1 } }
+          ]
+        },
+        {
+          title: "何を重視する？",
+          hint: "一番大事にしたいポイントを1つ選んでください。",
+          options: [
+            { label: "まずは安く試したい", desc: "価格を抑えて始めたい", scores: { hd: 3, s4k: 2 } },
+            { label: "手軽さ・配線のシンプルさ", desc: "コンセント周りをすっきりさせたい", scores: { s4k: 4 } },
+            { label: "画質と音響（Dolby対応）", desc: "映画を良い画と音で", scores: { plus: 4 } },
+            { label: "動作の速さ", desc: "起動や切り替えの速さ最優先", scores: { max: 5 } }
+          ]
+        }
+      ],
+      results: {
+        hd: {
+          name: "Fire TV Stick HD",
+          tagline: "フルHDテレビに最適なエントリーモデル。",
+          chips: ["フルHD対応", "エントリーモデル", "手軽に開始"],
+          why: "<strong>フルHDテレビに最適なエントリーモデル</strong>です。YouTubeや各種動画サービスを大画面で手軽に楽しめます。まずは安くストリーミングを始めたい方にぴったりです。",
+          price: null,
+          search: "Fire TV Stick HD"
+        },
+        s4k: {
+          name: "Fire TV Stick 4K",
+          tagline: "2026年新モデル。4Kを手軽に、配線もすっきり。",
+          chips: ["4K対応", "2026年 新モデル", "テレビのUSB給電対応"],
+          why: "<strong>2026年の新モデル</strong>で、4K映像を手軽に楽しめます。テレビのUSB給電に対応し、コンセント周りの配線がすっきりするのも魅力です。4Kテレビで迷ったらまず検討したい標準モデルです。",
+          price: null,
+          search: "Fire TV Stick 4K"
+        },
+        plus: {
+          name: "Fire TV Stick 4K Plus",
+          tagline: "Dolby Vision・Dolby Atmos対応。映画好きのための1台。",
+          chips: ["Dolby Vision", "Dolby Atmos", "4K対応"],
+          why: "<strong>Dolby Vision・Dolby Atmos</strong>に対応し、映画の映像と音にこだわりたい方向けです。対応テレビと組み合わせれば、自宅で映画館のような没入感が味わえます。映画・ドラマ中心の方におすすめです。",
+          price: null,
+          search: "Fire TV Stick 4K Plus"
+        },
+        max: {
+          name: "Fire TV Stick 4K Max",
+          tagline: "最速モデル。2.0GHz・Wi-Fi 6E・16GB搭載。",
+          chips: ["2.0GHz", "Wi-Fi 6E", "16GB", "最速モデル"],
+          why: "<strong>2.0GHzプロセッサとWi-Fi 6E、16GBストレージ</strong>で、動作の速さを最優先したい方に。アプリの起動や切り替えが軽快で、長く快適に使いたい方におすすめの最上位モデルです。",
+          price: null,
+          search: "Fire TV Stick 4K Max"
+        }
+      },
+      tieOrder: ["max", "plus", "s4k", "hd"]
+    }
+  };
+
+  var state = { cat: null, step: 0, answers: [] };
+
+  var viewHome = document.getElementById("view-home");
+  var viewQuiz = document.getElementById("view-quiz");
+  var viewResult = document.getElementById("view-result");
+
+  function show(view){
+    [viewHome, viewQuiz, viewResult].forEach(function(v){ v.classList.remove("active"); });
+    view.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function startQuiz(cat){
+    state.cat = cat;
+    state.step = 0;
+    state.answers = [];
+    renderQuestion();
+    show(viewQuiz);
+  }
+
+  function renderQuestion(){
+    var data = DATA[state.cat];
+    var q = data.questions[state.step];
+    document.getElementById("progressLabel").textContent = "質問 " + (state.step + 1) + " / " + data.questions.length;
+    document.getElementById("progressCat").textContent = data.label;
+    document.getElementById("progressBar").style.width = Math.round(((state.step + 1) / data.questions.length) * 100) + "%";
+    document.getElementById("qLabel").textContent = "QUESTION " + (state.step + 1) + " — " + data.label.toUpperCase();
+    document.getElementById("qTitle").textContent = q.title;
+    document.getElementById("qHint").textContent = q.hint || "";
+
+    var backBtn = document.getElementById("backBtn");
+    backBtn.textContent = state.step === 0 ? "← カテゴリーに戻る" : "← 前の質問に戻る";
+
+    var container = document.getElementById("options");
+    container.innerHTML = "";
+    q.options.forEach(function(opt, idx){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "option-btn";
+      btn.setAttribute("aria-label", opt.label);
+      btn.innerHTML = '<span class="dot" aria-hidden="true"></span>' +
+        '<span class="option-text"><strong></strong><span></span></span>' +
+        '<span class="option-arrow" aria-hidden="true">›</span>';
+      btn.querySelector(".option-text strong").textContent = opt.label;
+      btn.querySelector(".option-text span").textContent = opt.desc || "";
+      btn.addEventListener("click", function(){
+        btn.classList.add("selected");
+        // brief pause so the tap feels registered
+        setTimeout(function(){ answer(idx); }, 140);
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  function answer(idx){
+    var data = DATA[state.cat];
+    state.answers[state.step] = idx;
+    // trim any answers beyond current step (when user went back and changed path)
+    state.answers = state.answers.slice(0, state.step + 1);
+    if (state.step < data.questions.length - 1){
+      state.step++;
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function computeResult(){
+    var data = DATA[state.cat];
+    var scores = {};
+    Object.keys(data.results).forEach(function(k){ scores[k] = 0; });
+    state.answers.forEach(function(ansIdx, qIdx){
+      var opt = data.questions[qIdx].options[ansIdx];
+      if (!opt) return;
+      Object.keys(opt.scores).forEach(function(k){ scores[k] = (scores[k] || 0) + opt.scores[k]; });
+    });
+    var best = null, bestScore = -1;
+    // tie-break by tieOrder priority
+    data.tieOrder.forEach(function(k){
+      if (scores[k] > bestScore){ bestScore = scores[k]; best = k; }
+    });
+    // also check any key not in tieOrder
+    Object.keys(scores).forEach(function(k){
+      if (scores[k] > bestScore){ bestScore = scores[k]; best = k; }
+    });
+    return { key: best, scores: scores };
+  }
+
+  function showResult(){
+    var data = DATA[state.cat];
+    var computed = computeResult();
+    var r = data.results[computed.key];
+
+    document.getElementById("rCat").textContent = data.fullLabel;
+    document.getElementById("rName").textContent = r.name;
+    document.getElementById("rTagline").textContent = r.tagline;
+
+    var chips = document.getElementById("rChips");
+    chips.innerHTML = "";
+    r.chips.forEach(function(c){
+      var s = document.createElement("span"); s.textContent = c; chips.appendChild(s);
+    });
+
+    document.getElementById("rWhy").innerHTML = r.why;
+
+    var priceEl = document.getElementById("rPrice");
+    var priceLabel = document.getElementById("rPriceLabel");
+    var priceNote = document.getElementById("rPriceNote");
+    if (r.price){
+      priceLabel.textContent = "通常価格";
+      priceEl.textContent = r.price;
+      priceNote.textContent = "セール価格は11月27日から表示されます。先行セール・本セール期間はさらにお得になる場合があります。";
+    } else {
+      priceLabel.textContent = "価格について";
+      priceEl.textContent = "Amazonで確認";
+      priceEl.style.fontSize = "18px";
+      priceNote.textContent = "価格はAmazonのページで確認してください。セール価格は11月27日から表示されます。";
+    }
+    if (r.price){ priceEl.style.fontSize = ""; }
+
+    var amazonUrl = "https://www.amazon.co.jp/s?k=" + encodeURIComponent(r.search);
+    document.getElementById("rAmazon").href = amazonUrl;
+
+    var recap = document.getElementById("rAnswers");
+    recap.innerHTML = "";
+    state.answers.forEach(function(ansIdx, qIdx){
+      var q = data.questions[qIdx];
+      var opt = q.options[ansIdx];
+      var li = document.createElement("li");
+      var span = document.createElement("span"); span.textContent = "Q" + (qIdx + 1) + ". " + q.title;
+      var b = document.createElement("b"); b.textContent = opt ? opt.label : "";
+      li.appendChild(span); li.appendChild(b);
+      recap.appendChild(li);
+    });
+
+    show(viewResult);
+  }
+
+  // Category selection
+  document.querySelectorAll("[data-cat]").forEach(function(btn){
+    btn.addEventListener("click", function(){ startQuiz(btn.getAttribute("data-cat")); });
+  });
+
+  // Back
+  document.getElementById("backBtn").addEventListener("click", function(){
+    if (state.step === 0){
+      show(viewHome);
+    } else {
+      state.step--;
+      renderQuestion();
+      // re-render quiz view (already active, just update)
+      show(viewQuiz);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+
+  // Restart / change category (both return home; restart keeps intent clear)
+  document.getElementById("restartBtn").addEventListener("click", function(){
+    state = { cat: null, step: 0, answers: [] };
+    show(viewHome);
+  });
+  document.getElementById("changeCatBtn").addEventListener("click", function(){
+    state = { cat: null, step: 0, answers: [] };
+    show(viewHome);
+  });
+})();
+</script>
+</body>
+</html>
