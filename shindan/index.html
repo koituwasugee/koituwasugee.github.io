@@ -79,29 +79,29 @@
     position:relative; z-index:1;
   }
   .bf-badge{
-    display:inline-flex; align-items:center; gap:7px;
+    display:inline-flex; align-items:center; gap:8px;
     background:var(--accent); color:#fff;
-    font-size:11px; font-weight:800; letter-spacing:.08em;
-    padding:6px 10px; border-radius:999px;
+    font-size:11px; font-weight:600; letter-spacing:.02em;
+    padding:6px 10px; border-radius:8px;
   }
   .bf-badge i{width:6px;height:6px;background:#fff;border-radius:50%;display:block}
-  .hero-date{font-size:11px; color:#cbd5e1; font-weight:700; letter-spacing:.04em; white-space:nowrap}
+  .hero-date{font-size:11px; color:#cbd5e1; font-weight:500; letter-spacing:.04em; white-space:nowrap}
   .hero h1{
-    font-size:36px; line-height:1.15; font-weight:900; letter-spacing:-.02em;
+    font-size:36px; line-height:1.15; font-weight:600; letter-spacing:-.02em;
     margin:16px 0 8px; position:relative; z-index:1;
   }
   .hero h1 span{color:var(--yellow)}
   .hero p{
-    margin:0; color:#dbe2ea; font-size:14.5px; line-height:1.7; max-width:520px;
+    margin:0; color:#dbe2ea; font-size:14px; line-height:1.7; max-width:520px;
     position:relative; z-index:1;
   }
   .hero-meta{
     display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; position:relative; z-index:1;
   }
   .hero-meta span{
-    font-size:12px; font-weight:700; color:#fff;
+    font-size:12px; font-weight:500; color:#fff;
     border:1px solid rgba(255,255,255,.22);
-    padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.06);
+    padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.06);
   }
 
   /* Sale banner */
@@ -119,15 +119,15 @@
     flex:0 0 auto; width:42px; height:42px; border-radius:10px;
     background:var(--accent-soft); display:grid; place-items:center; color:var(--accent);
   }
-  .sale-banner strong{font-size:13.5px; display:block; line-height:1.4}
-  .sale-banner p{margin:3px 0 0; font-size:12.5px; color:var(--ink-2); line-height:1.6}
+  .sale-banner strong{font-size:14px; display:block; line-height:1.4}
+  .sale-banner p{margin:4px 0 0; font-size:13px; color:var(--ink-2); line-height:1.6}
   .sale-banner b{color:var(--ink)}
 
   /* Sections */
   .section-head{margin:26px 0 6px; display:flex; align-items:baseline; justify-content:space-between; gap:12px}
-  .section-head h2{font-size:19px; font-weight:900; letter-spacing:-.01em; margin:0}
-  .section-head span{font-size:12px; color:var(--ink-3); font-weight:700; white-space:nowrap}
-  .section-sub{font-size:13.5px; color:var(--ink-2); margin:0 0 14px}
+  .section-head h2{font-size:20px; font-weight:600; letter-spacing:-.01em; margin:0}
+  .section-head span{font-size:12px; color:var(--ink-3); font-weight:500; white-space:nowrap}
+  .section-sub{font-size:14px; color:var(--ink-2); margin:0 0 14px}
 
   /* Category cards */
   .cat-list{display:grid; gap:12px}
@@ -145,26 +145,26 @@
     flex:0 0 auto; width:58px; height:58px; border-radius:16px;
     display:grid; place-items:center;
   }
-  .cat-icon.echo{background:#e8f0fe; color:#1a56db}
-  .cat-icon.kindle{background:#e6f4f0; color:#067d62}
-  .cat-icon.fire{background:#fff1e2; color:#c2410c}
+  .cat-icon.echo{background:var(--surface-2); color:var(--ink-2)}
+  .cat-icon.kindle{background:var(--surface-2); color:var(--ink-2)}
+  .cat-icon.fire{background:var(--surface-2); color:var(--ink-2)}
   @media (prefers-color-scheme: dark){
-    .cat-icon.echo{background:#1c2a44}
-    .cat-icon.kindle{background:#15332c}
-    .cat-icon.fire{background:#332211}
+    .cat-icon.echo{background:#1f2429; color:#9aa4b2}
+    .cat-icon.kindle{background:#1f2429; color:#9aa4b2}
+    .cat-icon.fire{background:#1f2429; color:#9aa4b2}
   }
   .cat-body{flex:1; min-width:0}
-  .cat-body strong{font-size:17px; font-weight:900; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
-  .cat-body strong em{font-style:normal; font-size:11px; font-weight:800; color:var(--accent); background:var(--accent-soft); padding:2px 7px; border-radius:999px; letter-spacing:.02em}
+  .cat-body strong{font-size:16px; font-weight:600; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .cat-body strong em{font-style:normal; font-size:11px; font-weight:600; color:var(--accent); background:var(--accent-soft); padding:2px 8px; border-radius:8px; letter-spacing:.02em}
   .cat-body p{margin:2px 0 0; font-size:13px; color:var(--ink-2); line-height:1.55}
-  .cat-arrow{flex:0 0 auto; color:var(--ink-3); font-size:20px; font-weight:700}
+  .cat-arrow{flex:0 0 auto; color:var(--ink-3); font-size:20px; font-weight:500}
 
   .how{
     margin-top:22px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg); padding:16px 18px;
   }
-  .how h3{margin:0 0 10px; font-size:13px; font-weight:900; letter-spacing:.06em; color:var(--ink-3)}
+  .how h3{margin:0 0 10px; font-size:13px; font-weight:600; letter-spacing:.06em; color:var(--ink-3)}
   .how ol{margin:0; padding:0; list-style:none; display:grid; gap:10px; counter-reset:step}
-  .how li{display:flex; gap:12px; font-size:13.5px; color:var(--ink-2); align-items:flex-start}
+  .how li{display:flex; gap:12px; font-size:14px; color:var(--ink-2); align-items:flex-start}
   .how li b{
     flex:0 0 auto; width:24px; height:24px; border-radius:50%; background:var(--black); color:#fff;
     display:grid; place-items:center; font-size:12px; margin-top:1px;
@@ -173,7 +173,7 @@
   .how li strong{color:var(--ink)}
 
   .disclaimer{
-    margin-top:18px; font-size:11.5px; line-height:1.7; color:var(--ink-3);
+    margin-top:18px; font-size:12px; line-height:1.7; color:var(--ink-3);
     background:var(--surface-2); border-radius:12px; padding:12px 14px;
   }
 
@@ -187,11 +187,11 @@
   .back-btn{
     display:inline-flex; align-items:center; gap:6px;
     background:var(--surface); border:1px solid var(--line); color:var(--ink-2);
-    font-size:13px; font-weight:700; padding:9px 14px; border-radius:999px; min-height:40px;
+    font-size:13px; font-weight:500; padding:8px 14px; border-radius:10px; min-height:40px;
   }
   .back-btn:hover{border-color:var(--ink-3)}
   .progress-wrap{margin:16px 0 6px}
-  .progress-meta{display:flex; justify-content:space-between; font-size:12px; font-weight:800; color:var(--ink-3); letter-spacing:.04em}
+  .progress-meta{display:flex; justify-content:space-between; font-size:12px; font-weight:600; color:var(--ink-3); letter-spacing:.04em}
   .progress-meta b{color:var(--accent)}
   .progress{height:8px; background:var(--surface-2); border-radius:999px; overflow:hidden; margin-top:7px; border:1px solid var(--line)}
   .progress i{display:block; height:100%; background:var(--accent); border-radius:999px; transition:width .3s ease}
@@ -200,13 +200,13 @@
     background:var(--surface); border:1px solid var(--line); border-radius:24px;
     padding:22px 18px 18px; margin-top:14px; box-shadow:var(--shadow);
   }
-  .q-label{font-size:11px; font-weight:900; letter-spacing:.1em; color:var(--accent); margin:0 0 6px}
-  .q-title{font-size:21px; font-weight:900; line-height:1.4; margin:0 0 4px; letter-spacing:-.01em}
+  .q-label{font-size:11px; font-weight:600; letter-spacing:.02em; color:var(--accent); margin:0 0 6px}
+  .q-title{font-size:20px; font-weight:600; line-height:1.4; margin:0 0 4px; letter-spacing:-.01em}
   .q-hint{font-size:13px; color:var(--ink-3); margin:0 0 16px}
   .options{display:grid; gap:10px}
   .option-btn{
     width:100%; text-align:left; background:var(--surface);
-    border:1.5px solid var(--line); border-radius:16px; padding:15px 16px;
+    border:1.5px solid var(--line); border-radius:16px; padding:16px 16px;
     display:flex; gap:12px; align-items:center; min-height:60px;
     transition:border-color .15s, background .15s;
   }
@@ -222,15 +222,15 @@
   .option-btn.selected .dot{border-color:var(--accent)}
   .option-btn.selected .dot::after{background:var(--accent)}
   .option-text{flex:1}
-  .option-text strong{font-size:15px; font-weight:800; display:block; line-height:1.4}
-  .option-text span{font-size:12.5px; color:var(--ink-2); display:block; margin-top:1px; line-height:1.5}
-  .option-arrow{color:var(--ink-3); font-weight:700}
+  .option-text strong{font-size:15px; font-weight:600; display:block; line-height:1.4}
+  .option-text span{font-size:13px; color:var(--ink-2); display:block; margin-top:1px; line-height:1.5}
+  .option-arrow{color:var(--ink-3); font-weight:500}
 
   /* ---------- Result ---------- */
   .result-badge{
     display:inline-flex; align-items:center; gap:6px;
     background:var(--green-soft); color:var(--green);
-    font-size:12px; font-weight:900; padding:6px 11px; border-radius:999px; letter-spacing:.03em;
+    font-size:12px; font-weight:600; padding:6px 12px; border-radius:8px; letter-spacing:.03em;
   }
   .result-card{
     background:var(--surface); border:1px solid var(--line); border-radius:26px;
@@ -240,14 +240,14 @@
     background:var(--black); color:#fff; padding:26px 20px 22px; position:relative; overflow:hidden;
   }
   .result-visual::after{content:""; position:absolute; right:-40px; bottom:-60px; width:170px; height:170px; border-radius:50%; background:var(--yellow); opacity:.13}
-  .result-visual .cat-name{font-size:12px; font-weight:800; letter-spacing:.1em; color:var(--yellow); margin:0 0 6px; position:relative; z-index:1}
-  .result-visual h2{font-size:28px; line-height:1.25; font-weight:900; margin:0; letter-spacing:-.01em; position:relative; z-index:1}
-  .result-visual p{margin:8px 0 0; color:#dbe2ea; font-size:13.5px; position:relative; z-index:1; line-height:1.6}
+  .result-visual .cat-name{font-size:12px; font-weight:600; letter-spacing:.02em; color:var(--yellow); margin:0 0 6px; position:relative; z-index:1}
+  .result-visual h2{font-size:28px; line-height:1.25; font-weight:600; margin:0; letter-spacing:-.01em; position:relative; z-index:1}
+  .result-visual p{margin:8px 0 0; color:#dbe2ea; font-size:14px; position:relative; z-index:1; line-height:1.6}
   .result-body{padding:20px}
-  .chips{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:18px}
-  .chips span{font-size:12px; font-weight:800; background:var(--surface-2); border:1px solid var(--line); padding:6px 10px; border-radius:999px}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px}
+  .chips span{font-size:12px; font-weight:600; background:var(--surface-2); border:1px solid var(--line); padding:6px 10px; border-radius:8px}
   .why-box{background:var(--accent-soft); border-radius:16px; padding:16px}
-  .why-box h3{margin:0 0 6px; font-size:13px; font-weight:900; letter-spacing:.04em; display:flex; align-items:center; gap:7px}
+  .why-box h3{margin:0 0 6px; font-size:13px; font-weight:600; letter-spacing:.04em; display:flex; align-items:center; gap:8px}
   .why-box p{margin:0; font-size:14px; line-height:1.75; color:var(--ink-2)}
   .why-box p strong{color:var(--ink)}
   .price-row{
@@ -255,45 +255,47 @@
     border-top:1px dashed var(--line); border-bottom:1px dashed var(--line);
     padding:16px 2px; margin:18px 0;
   }
-  .price-row small{font-size:11px; font-weight:800; letter-spacing:.07em; color:var(--ink-3); display:block}
-  .price-row strong{font-size:20px; font-weight:900}
+  .price-row small{font-size:11px; font-weight:600; letter-spacing:.02em; color:var(--ink-3); display:block}
+  .price-row strong{font-size:20px; font-weight:600}
   .price-row .price-note{font-size:12px; color:var(--ink-2); text-align:right; line-height:1.5; max-width:210px}
   .amazon-btn{
-    display:flex; align-items:center; justify-content:center; gap:9px;
+    display:flex; align-items:center; justify-content:center; gap:8px;
     width:100%; min-height:56px; border-radius:16px;
     background:var(--accent); color:#fff; text-decoration:none;
-    font-size:16px; font-weight:900; letter-spacing:.01em;
-    box-shadow:0 8px 20px rgba(255,122,0,.28);
+    font-size:16px; font-weight:600; letter-spacing:.01em;
+    box-shadow:0 8px 20px rgba(19,25,33,.16);
   }
   .amazon-btn:hover{filter:brightness(1.03)}
-  .amazon-btn:focus-visible{outline:3px solid var(--yellow); outline-offset:2px}
-  .amazon-sub{font-size:11.5px; color:var(--ink-3); text-align:center; margin:9px 0 0; line-height:1.6}
+  .amazon-btn:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  .amazon-sub{font-size:12px; color:var(--ink-3); text-align:center; margin:8px 0 0; line-height:1.6}
   .result-actions{display:grid; gap:10px; margin-top:18px}
   .btn-primary{
     width:100%; min-height:52px; border-radius:14px; border:0;
-    background:var(--black); color:#fff; font-size:15px; font-weight:900;
+    background:var(--black); color:#fff; font-size:15px; font-weight:600;
   }
   @media (prefers-color-scheme: dark){ .btn-primary{background:#fff; color:#111} }
   .btn-secondary{
     width:100%; min-height:52px; border-radius:14px;
     background:var(--surface); border:1.5px solid var(--line); color:var(--ink);
-    font-size:14.5px; font-weight:800;
+    font-size:14px; font-weight:600;
   }
   .answers-recap{margin-top:18px}
-  .answers-recap h3{font-size:12px; letter-spacing:.07em; color:var(--ink-3); font-weight:900; margin:0 0 8px}
-  .answers-recap ul{list-style:none; margin:0; padding:0; display:grid; gap:7px}
+  .answers-recap h3{font-size:12px; letter-spacing:.02em; color:var(--ink-3); font-weight:600; margin:0 0 8px}
+  .answers-recap ul{list-style:none; margin:0; padding:0; display:grid; gap:8px}
   .answers-recap li{font-size:13px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; gap:12px}
   .answers-recap li span{color:var(--ink-3); flex:0 0 auto}
   .answers-recap li b{text-align:right}
 
   footer{margin-top:28px; padding-top:16px; border-top:1px solid var(--line)}
-  footer p{font-size:11.5px; color:var(--ink-3); line-height:1.7; margin:0 0 6px}
+  footer p{font-size:12px; color:var(--ink-3); line-height:1.7; margin:0 0 6px}
   @media (min-width:640px){
     .hero{border-radius:0 0 24px 24px; margin:0; padding:28px 28px 30px}
     .hero h1{font-size:42px}
     .cat-list{grid-template-columns:1fr}
     .q-card{padding:26px 24px 22px}
   }
+
+  #rName::before{content:""; display:inline-block; width:12px; height:12px; border-radius:4px; background:var(--accent); margin-right:12px}
 </style>
 </head>
 <body>
@@ -303,7 +305,7 @@
   <section id="view-home" class="view active" aria-label="カテゴリー選択">
     <header class="hero">
       <div class="hero-top">
-        <span class="bf-badge"><i></i> BLACK FRIDAY</span>
+        <span class="bf-badge"><i></i> Black Friday</span>
         <span class="hero-date">2026年 11月27日〜12月7日</span>
       </div>
       <h1>どっち買う？<br><span>診断</span> — Amazonデバイス編</h1>
@@ -327,7 +329,7 @@
 
     <div class="section-head">
       <h2>何で迷っていますか？</h2>
-      <span>STEP 1 / カテゴリー</span>
+      <span>Step 1 / カテゴリー</span>
     </div>
     <p class="section-sub">気になるカテゴリーをタップしてください。あとは3つの質問に答えるだけです。</p>
 
@@ -388,7 +390,7 @@
       </div>
     </div>
     <div class="q-card">
-      <p class="q-label" id="qLabel">QUESTION 1</p>
+      <p class="q-label" id="qLabel">Question 1</p>
       <h2 class="q-title" id="qTitle"></h2>
       <p class="q-hint" id="qHint"></p>
       <div class="options" id="options"></div>
@@ -412,7 +414,7 @@
         <div class="chips" id="rChips"></div>
 
         <div class="why-box">
-          <h3>💡 なぜこれがおすすめか</h3>
+          <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg> なぜこれがおすすめか</h3>
           <p id="rWhy"></p>
         </div>
 
@@ -695,7 +697,7 @@
     document.getElementById("progressLabel").textContent = "質問 " + (state.step + 1) + " / " + data.questions.length;
     document.getElementById("progressCat").textContent = data.label;
     document.getElementById("progressBar").style.width = Math.round(((state.step + 1) / data.questions.length) * 100) + "%";
-    document.getElementById("qLabel").textContent = "QUESTION " + (state.step + 1) + " — " + data.label.toUpperCase();
+    document.getElementById("qLabel").textContent = "Question " + (state.step + 1) + " — " + data.label.toUpperCase();
     document.getElementById("qTitle").textContent = q.title;
     document.getElementById("qHint").textContent = q.hint || "";
 
